@@ -1,7 +1,9 @@
 module.exports = {
   content: [
     "./pages/index.js",
-    "./modules/auth/pages/SignInPage.js",
+    "./pages/Login.js",
+    "./pages/Register.js",
+    "./modules/auth/components/RegisterForm.js",
     "./modules/auth/components/SignInForm.js"
   ],
   theme: {

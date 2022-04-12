@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import SignUpPage from '../modules/auth/pages/SignInPage'
+import SignInPage from '../pages/Login'
+import Register from './Register'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
   return (
-    <SignUpPage />
+    <SignInPage />
   )
 }
