@@ -1,13 +1,15 @@
 import React from 'react';
 import { useFormik} from 'formik';
 import { SignInSchema } from '../utils';
+import { useSelector,useDispatch } from 'react-redux';
 
-const SignInForm = () =>{
+const SignInForm = (props) =>{
 
-    const [formValues,setFormValues] = React.useState({
-        email : "",
-        password : ""
-    });
+    const LoginClick = ()=>{
+        props.onLogin(formik.values.email,formik.values.password)
+    }
+
+    console.log(props.loading)
 
     const formik = useFormik({
         initialValues: {
@@ -19,6 +21,9 @@ const SignInForm = () =>{
           alert(JSON.stringify(values, null, 2));
         },
     });
+
+    
+    console.log(formik.values.email)
     return (
         <div className="w-full max-w-xs" style={{maxWidth : "100%",padding : 200,paddingLeft : 550}}>
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" style={{width : 400}} 
@@ -59,7 +64,11 @@ const SignInForm = () =>{
                     }
                     </div>
                 <div className="flex items-center justify-between">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                    <button onClick={(e) =>{
+                        e.preventDefault();
+                        LoginClick()
+                    }}
+                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
                         Sign In
                     </button>
                     <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
