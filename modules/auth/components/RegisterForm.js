@@ -40,7 +40,7 @@ const RegisterForm = () =>{
                            placeholder="Username"
                     />
                     {
-                        formik.errors.email && formik.touched ? (<p class="text-red-500 text-xs italic">{formik.errors.email}</p>)  : null
+                        formik.errors.email && formik.touched ? (<p className="text-red-500 text-xs italic">{formik.errors.email}</p>)  : null
                     }
                 </div>
                 <div className="mb-4">
@@ -57,7 +57,7 @@ const RegisterForm = () =>{
                            onChange={formik.handleChange} 
                            />
                     {
-                        formik.touched && formik.errors.password ? (<p class="text-red-500 text-xs italic">{formik.errors.password}</p>)  : null
+                        formik.touched && formik.errors.password ? (<p className="text-red-500 text-xs italic">{formik.errors.password}</p>)  : null
                     }
                 </div>
                 <div className="mb-6">
@@ -74,7 +74,7 @@ const RegisterForm = () =>{
                            onChange={formik.handleChange} 
                            />
                     {
-                        formik.touched && formik.errors.confirmPassword ? (<p class="text-red-500 text-xs italic">{formik.errors.confirmPassword}</p>)  : null
+                        formik.touched && formik.errors.confirmPassword ? (<p className="text-red-500 text-xs italic">{formik.errors.confirmPassword}</p>)  : null
                     }
                 </div>
                 <div className="flex items-center justify-between">
@@ -92,4 +92,4 @@ const RegisterForm = () =>{
     )
 }
 
-export default RegisterForm
+export default React.memo(RegisterForm)
