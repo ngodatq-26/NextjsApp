@@ -1,8 +1,15 @@
-import nextConnect from "next-connect";
-import database from "./database";
 
-const middleware = nextConnect();
 
-middleware.use(database);
+// Helper method to wait for a middleware to execute before continuing
+// And to throw an error when an error happens in a middleware
+export default function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
 
-export default middleware;
+      return resolve(result)
+    })
+  })
+}
