@@ -1,8 +1,11 @@
-import nextConnect from "next-connect";
-import database from "./database";
-
-const middleware = nextConnect();
-
-middleware.use(database);
-
-export default middleware;
+export default function runMiddleware(req, res, fn) {
+    return new Promise((resolve, reject) => {
+      fn(req, res, (result) => {
+        if (result instanceof Error) {
+          return reject(result)
+        }
+  
+        return resolve(result)
+      })
+    })
+  }
