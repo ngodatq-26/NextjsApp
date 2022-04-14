@@ -8,9 +8,7 @@ const SignInForm = (props) =>{
     const LoginClick = ()=>{
         props.onLogin(formik.values.email,formik.values.password)
     }
-
-    console.log(props.loading)
-
+    
     const formik = useFormik({
         initialValues: {
           password:'',
@@ -22,8 +20,6 @@ const SignInForm = (props) =>{
         },
     });
 
-    
-    console.log(formik.values.email)
     return (
         <div className="w-full max-w-xs" style={{maxWidth : "100%",padding : 200,paddingLeft : 550}}>
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" style={{width : 400}} 

@@ -15,9 +15,9 @@ const SignInPage = ({props}) =>{
 
     const onLogin = async (email,password)=>{
       setLoading(true);
-      await fetch (API_PATHS.login,{email : email,password : password},true).then(data =>{
-        console.log(data.data)
-        return data.data
+      await fethAPI(API_PATHS.login,'POST',{email : email,password : password},true).then(data =>{
+        console.log(data)
+        return data
       })
       setLoading(false)
     }

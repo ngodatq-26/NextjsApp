@@ -1,3 +1,3 @@
 export const API_PATHS = {
-    login : 'https://api.gearfocus.div4.pgtest.co/api/authentication/login'
+    login : 'http://localhost:8080/api/auth/login'
 }
