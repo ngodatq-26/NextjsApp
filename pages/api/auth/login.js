@@ -1,6 +1,7 @@
 import { connectToDatabase } from "../../../middlewares/database";
 import Cors from 'cors'
 import runMiddleware from '../../../middlewares/middleware'
+import bcrypt from "bcryptjs/dist/bcrypt";
 // Initializing the cors middleware
 const cors = Cors({
   methods: ['GET', 'HEAD'],
@@ -16,20 +17,25 @@ export default async (req, res) => {
     .find({email : req.body.email})
     .toArray().then((user) =>{
        if(user[0]) {
-          if(req.body.password !== user[0].password) {
-            return Promise.reject(Error('The password is Invalid!!!'))
-          } 
-          return Promise.resolve(user)
+        return bcrypt.compare(password, user[0].password).then((result) => {
+          if (result) return Promise.resolve(user);
+          return Promise.reject(Error('The password you entered is incorrect'));
+        });
        } 
        else return Promise.reject(Error('The email is not exist!!!!'))
     }).then((data) =>{
       return res.send({
         status : '200',
-        user : data,
+        success : 'true',
+        user : {
+          email : data[0].email,
+          password : req.body.password
+        }
       })
     }).catch(error =>{
       return res.send({
-        status : '400',
+        status : '200',
+        success : 'false',
         message : error.toString()
       })
     }) 
