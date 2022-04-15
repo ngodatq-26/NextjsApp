@@ -17,5 +17,6 @@ export const SignUpSchema = Yup.object().shape({
     confirmPassword : Yup.string().when('password', (password, field) =>
       password ? field.required().oneOf([Yup.ref('password')]) : field)
       .required('confirm password is Required'),
-    email: Yup.string().email('Email is Invalid').required('Email is Required')
+    email: Yup.string().email('Email is Invalid').required('Email is Required'),
+    name : Yup.string().required('Name is required').min(3,'Name is min 3')
 })

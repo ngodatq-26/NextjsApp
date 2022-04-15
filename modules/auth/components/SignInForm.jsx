@@ -4,6 +4,7 @@ import { SignInSchema } from '../utils';
 import { useSelector,useDispatch } from 'react-redux';
 import backgroundLogo from '../../../images/background.jpg'
 import Image from 'next/image'
+import CustomButtonLoad from '../../common/components/CustomButtonLoad';
 
 const SignInForm = (props) =>{
 
@@ -21,15 +22,11 @@ const SignInForm = (props) =>{
         },
         validationSchema : SignInSchema,
         onSubmit: values => {
-          
         },
     });
 
     return (       
-        <div className="w-full h-screen font-sans bg-cover bg-landscape">
-            <div className="container flex items-center justify-center flex-1 h-full mx-auto">
-                <div className="w-full max-w-lg">
-                    <div className="leading-loose">
+     
                         <form 
                               onSubmit={formik.handleSubmit}
                               className="max-w-sm p-10 m-auto bg-white bg-opacity-25 rounded shadow-xl">
@@ -63,13 +60,16 @@ const SignInForm = (props) =>{
                                     </div>
                             </div>
                             <div className="flex items-center justify-between mt-4">
-                                    <button 
+                                    {
+                                        props.loading ? <CustomButtonLoad /> :
+                                        <button 
                                     onClick={(e) =>{
                                         LoginClick()
                                     }}
                                     type="submit" className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
                                             Login
                                     </button>
+                                    }
                             </div>
                             <div className="text-center">
                                     <a href="/Register" className="right-0 inline-block text-sm font-light align-baseline text-500 hover:text-gray-800">
@@ -77,10 +77,7 @@ const SignInForm = (props) =>{
                                     </a>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+         
 
     )
 }

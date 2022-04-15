@@ -14,14 +14,15 @@ module.exports = {
       "./pages/Register.jsx",
       "./pages/Home.jsx",
       "./modules/auth/components/RegisterForm.jsx",
-      "./modules/auth/components/SignInForm.jsx"
+      "./modules/auth/components/SignInForm.jsx",
+      "./modules/common/components/buttonLoading.jsx"
     ],
   },
   theme: {
     extend: {
       backgroundImage: (theme) => ({
         check: "url('/icons/check.svg')",
-        landscape: "url('/images/landscape/2.jpg')",
+        landscape: "url('https://thumbs.dreamstime.com/b/social-media-icon-background-wallpaper-white-background-social-media-background-icons-vector-ai-file-version-116684698.jpg')",
       }),
     },
   },

@@ -2,15 +2,13 @@ import React from 'react';
 import { SignUpSchema } from '../utils';
 import { useFormik} from 'formik';
 import Link from 'next/link';
+import CustomButtonLoad from '../../common/components/CustomButtonLoad';
 
-const RegisterForm = () =>{
-    const [formValues,setFormValues] = React.useState({
-        email : "",
-        password : ""
-    });
+const RegisterForm = (props) =>{
 
     const formik = useFormik({
         initialValues: {
+          name:'',
           password:'',
           email: '',
           confirmPassword : ''
@@ -21,8 +19,16 @@ const RegisterForm = () =>{
         },
     });
 
+    const registerClick = () => {
+        if(!formik.errors.email && !formik.errors.password && formik.values.email !== "" &&
+           !formik.errors.confirmPassword &&
+           !formik.errors.name
+        ) {
+            props.onRegister(formik.values.email,formik.values.password,formik.values.confirmPassword,formik.values.name)
+        } else return false
+    }
+
     return (
-        <div className="w-full max-w-xs" style={{maxWidth : "100%",padding : 200,paddingLeft : 550}}>
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" style={{width : 400}} 
                   onSubmit={formik.handleSubmit}
                   >
@@ -32,19 +38,37 @@ const RegisterForm = () =>{
                 <div className="mb-4">
 
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-                        Username
+                        Email
                     </label>
                     <input className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" 
-                           id="username"
+                           id="email"
                            name="email" 
                            type="text" 
                            value={formik.values.email}
                            onChange={formik.handleChange}
                            onBlur={formik.onBlur}
-                           placeholder="Username"
+                           placeholder="Email"
                     />
                     {
                         formik.errors.email && formik.touched ? (<p className="text-red-500 text-xs italic">{formik.errors.email}</p>)  : null
+                    }
+                </div>
+                <div className="mb-4">
+
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                        Name
+                    </label>
+                    <input className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" 
+                           id="name"
+                           name="name" 
+                           type="text" 
+                           value={formik.values.name}
+                           onChange={formik.handleChange}
+                           onBlur={formik.onBlur}
+                           placeholder="Your name"
+                    />
+                    {
+                        formik.errors.name && formik.touched ? (<p className="text-red-500 text-xs italic">{formik.errors.name}</p>)  : null
                     }
                 </div>
                 <div className="mb-4">
@@ -82,9 +106,14 @@ const RegisterForm = () =>{
                     }
                 </div>
                 <div className="flex items-center justify-between">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                        Sign Up
-                    </button>
+                    {
+                        props.loading ? <CustomButtonLoad /> : 
+                        <button 
+                        onClick={registerClick}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                            Sign Up
+                        </button>
+                    }
                     <Link href="/Login">
                     <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
                         if you have account,login {"->"}
@@ -92,7 +121,6 @@ const RegisterForm = () =>{
                     </Link>
                 </div>
             </form>
-        </div>
     )
 }
 
