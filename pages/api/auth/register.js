@@ -3,8 +3,6 @@ import Cors from 'cors';
 import runMiddleware from "../../../middlewares/middleware";
 import bcrypt from "bcryptjs/dist/bcrypt";
 import { hash } from "bcrypt";
-import jwt from "json-web-token";
-
 
 const cors = Cors({
     methods: ['GET', 'HEAD'],
@@ -22,7 +20,6 @@ const Register = async (req,res) =>{
             return Promise.reject(Error("Email has been exist !!!"));
         }
     }).then(() =>{
-        const token = jwt.sign()
         db.collection("Users").insert({
             email : req.body.email,
             name : req.body.name,
