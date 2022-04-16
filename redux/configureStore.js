@@ -1,14 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
-
+import { configureStore,combineReducers } from "@reduxjs/toolkit";
+import { createWrapper } from "next-redux-wrapper";
 import authReducer from "../modules/auth/redux/authReducer";
 
-const RootReducer = {
-    auth : authReducer
-}
+const combineReducer = combineReducers({
+  authReducer,
+})
 
 const store = configureStore({
-  reducer : RootReducer,
+  reducer : combineReducer,
   devTools : true
 })
 
-export default store;
+export const makeStore =() => store;
+
+const wrapper = createWrapper(makeStore,{debug : true});
+
+export default wrapper;

@@ -18,7 +18,7 @@ const RegisterForm = (props) =>{
           alert(JSON.stringify(values, null, 2));
         },
     });
-
+    
     const registerClick = () => {
         if(!formik.errors.email && !formik.errors.password && formik.values.email !== "" &&
            !formik.errors.confirmPassword &&

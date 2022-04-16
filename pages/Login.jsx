@@ -6,6 +6,8 @@ import { API_PATHS } from '../configs/apiConfigs'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
 import Router from 'next/router'
+import { setTokenCookies } from '../modules/auth/redux/authReducer';
+import { useSelector } from 'react-redux'
 
 const SignInForm = dynamic(() => import('../modules/auth/components/SignInForm'));
 
@@ -13,7 +15,9 @@ const SignInPage = ({props}) =>{
 
     const [loading,setLoading] = React.useState(false);
     const [error,SetError] = React.useState();
+    const counter = useSelector((state) => state.authReducer.token);
 
+    console.log(counter)
     const onLogin = React.useCallback(async (email,password)=>{
       setLoading(true);
       await fethAPI(API_PATHS.login,'POST',{email : email,password : password},true).then(user =>{
@@ -50,6 +54,7 @@ const SignInPage = ({props}) =>{
     )
 }
 
+//example account : email : Khanhtrinh2001checkm@gmail.com password : Datdatdat
 export async function getStaticProps() {
   return {
     props : {
