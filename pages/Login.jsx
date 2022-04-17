@@ -5,31 +5,45 @@ import { fethAPI } from '../utils/fetch'
 import { API_PATHS } from '../configs/apiConfigs'
 import axios from 'axios'
 import dynamic from 'next/dynamic'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
 import { setTokenCookies } from '../modules/auth/redux/authReducer';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import {ACCESS_TOKEN_KEY} from '../utils/constant';
 
 const SignInForm = dynamic(() => import('../modules/auth/components/SignInForm'));
 
 const SignInPage = ({props}) =>{
 
+    const router = useRouter()
     const [loading,setLoading] = React.useState(false);
     const [error,SetError] = React.useState();
     const counter = useSelector((state) => state.authReducer.token);
+    const dispatch = useDispatch();
 
-    console.log(counter)
     const onLogin = React.useCallback(async (email,password)=>{
       setLoading(true);
       await fethAPI(API_PATHS.login,'POST',{email : email,password : password},true).then(user =>{
-        if(user.data.success == true) {
-          console.log('ok')
+        if(user.data.success == "true") {
+          Cookies.set(ACCESS_TOKEN_KEY,user.data.token,{expires : 86400});
+          dispatch(setTokenCookies(user.data.token))
+          Router.push('/Home')
         }
         else {
+          console.log('ok')
           SetError(user.data.message)
         }
       })
       setLoading(false)
       return;
+    },[])
+
+    const isLogin = React.useMemo(() => Cookies.get(ACCESS_TOKEN_KEY),[]);
+    
+    React.useEffect (() =>{
+       if(isLogin) {
+         Router.push("/Home")
+       }
     },[])
 
     return (

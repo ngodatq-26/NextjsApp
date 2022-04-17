@@ -1,13 +1,10 @@
 import { configureStore,combineReducers } from "@reduxjs/toolkit";
-import { createWrapper } from "next-redux-wrapper";
+import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import authReducer from "../modules/auth/redux/authReducer";
-
-const combineReducer = combineReducers({
-  authReducer,
-})
+import masterReducer from "./reducer";
 
 const store = configureStore({
-  reducer : combineReducer,
+  reducer : masterReducer,
   devTools : true
 })
 
