@@ -15,8 +15,10 @@ module.exports = {
       "./pages/Home.jsx",
       "./modules/auth/components/RegisterForm.jsx",
       "./modules/auth/components/SignInForm.jsx",
-      "./modules/common/components/buttonLoading.jsx",
-      "./modules/common/components/headerComponent.jsx"
+      "./modules/common/components/CustomButtonLoading.jsx",
+      "./modules/home/components/HeaderCustom.jsx",
+      "./modules/home/components/Footer.jsx",
+      "./modules/home/components/PostComponent.jsx"
     ],
   },
   theme: {
